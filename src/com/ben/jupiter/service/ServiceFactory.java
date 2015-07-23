@@ -15,12 +15,21 @@
 */
 package com.ben.jupiter.service;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author Yang Bin
  *
  */
 public class ServiceFactory {
 
+	private transient static Log log = LogFactory.getLog(ServiceFactory.class);
+	
+	private static IServiceInvoke objIServiceInvoke = null;
 	
 	
+	public static void main(String args[]) throws Exception {
+		log.error("this is ServiceFactory: test log error.");
+	}
 }
