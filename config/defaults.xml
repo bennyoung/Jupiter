@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defaults>
+	<center>
+	</center>
+	
+	<proxy>
+	</proxy>
+	
+	<interceptor>
+		<clazz name="" />
+	</interceptor>
+	
+	<transaction-interceptor>
+	</transaction-interceptor>
+	
+	<transaction type="Required">
+		<clazz name="com.ai.appframe2.complex.transaction.impl.LocalMutilTransactionImpl" />
+		<mapping>
+			<property name="com.ai.appframe2.complex.self.service.base" value="base" />
+		</mapping>
+	</transaction>
+	
+</defaults>
