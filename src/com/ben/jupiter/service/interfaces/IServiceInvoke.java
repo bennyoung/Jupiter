@@ -13,7 +13,7 @@
 *---------------------------------------------------------*
 * 22 Jul 2015     Yang Bin           v1.0.0               修改原因
 */
-package com.ben.jupiter.service;
+package com.ben.jupiter.service.interfaces;
 
 /**
  * @author Yang Bin
