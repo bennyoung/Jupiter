@@ -15,10 +15,26 @@
 */
 package com.ben.jupiter.complex.xml.cfg.defaults;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Yang Bin
  *
  */
 public class Center {
 
+	private List list = new ArrayList();
+
+	public Center() {
+		
+	}
+
+	public void addProperty(Property property) {
+		this.list.add(property);
+	}
+
+	public Property[] getProperties() {
+		return (Property[]) this.list.toArray(new Property[0]);
+	}
 }

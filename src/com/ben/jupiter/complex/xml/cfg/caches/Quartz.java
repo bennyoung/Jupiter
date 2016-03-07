@@ -15,10 +15,29 @@
 */
 package com.ben.jupiter.complex.xml.cfg.caches;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ben.jupiter.complex.xml.cfg.defaults.Property;
+
+
 /**
  * @author Yang Bin
  *
  */
 public class Quartz {
 
+	private List list = new ArrayList();
+
+	public Quartz() {
+
+	}
+
+	public void addProperty(Property property) {
+		list.add(property);
+	}
+
+	public Property[] getPropertys() {
+		return (Property[]) list.toArray(new Property[0]);
+	}
 }

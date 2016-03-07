@@ -21,8 +21,13 @@ package com.ben.jupiter.common;
  */
 public class Constants {
 
+	// defaults.xml路径
 	public static final String DEFAULTS_FILE_NAME = "system/service/defaults.xml";
 	
 	public static final String D_DEFAULTS_FILE_NAME = "appframe.service.default.filename";
+	
+	// cache.xml路径
+	public static final String CACHE_FILE_NAME = "system/cache/cache.xml";
+	
 	
 }

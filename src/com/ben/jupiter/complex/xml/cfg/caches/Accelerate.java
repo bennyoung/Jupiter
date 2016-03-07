@@ -15,10 +15,47 @@
 */
 package com.ben.jupiter.complex.xml.cfg.caches;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ben.jupiter.complex.xml.cfg.defaults.Property;
+
 /**
  * @author Yang Bin
  *
  */
 public class Accelerate {
 
+	private List list = new ArrayList();
+	private String enable = "false";
+	private String match = null;
+	
+	public Accelerate() {
+		
+	}
+	
+	public String getEnable() {
+		return enable;
+	}
+
+	public void setEnable(String enable) {
+		this.enable = enable;
+	}
+
+	public String getMatch() {
+		return match;
+	}
+
+	public void setMatch(String match) {
+		this.match = match;
+	}
+
+	public void addProperty(Property property) {
+		list.add(property);
+	}
+
+	public Property[] getPropertys() {
+		return (Property[]) list.toArray(new Property[0]);
+	}
+	
 }

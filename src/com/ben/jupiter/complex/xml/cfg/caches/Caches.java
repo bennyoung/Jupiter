@@ -15,10 +15,44 @@
 */
 package com.ben.jupiter.complex.xml.cfg.caches;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Yang Bin
  *
  */
 public class Caches {
 
+	private List list = new ArrayList();
+	private Quartz quartz;
+	private Accelerate accelerate;
+	
+	public Caches() {
+		
+	}
+	
+	public Quartz getQuartz() {
+		return quartz;
+	}
+
+	public void setQuartz(Quartz quartz) {
+		this.quartz = quartz;
+	}
+
+	public Accelerate getAccelerate() {
+		return accelerate;
+	}
+
+	public void setAccelerate(Accelerate accelerate) {
+		this.accelerate = accelerate;
+	}
+
+	public void addCache(Cache cache) {
+		this.list.add(cache);
+	}
+
+	public Cache[] getCaches() {
+		return (Cache[]) this.list.toArray(new Cache[0]);
+	}
 }
