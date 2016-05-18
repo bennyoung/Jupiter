@@ -21,6 +21,7 @@ import org.junit.Test;
 
 import com.ben.jupiter.complex.xml.cfg.caches.Cache;
 import com.ben.jupiter.complex.xml.cfg.caches.Caches;
+import com.ben.jupiter.complex.xml.cfg.defaults.Defaults;
 import com.ben.jupiter.complex.xml.cfg.defaults.Property;
 
 /**
@@ -49,6 +50,12 @@ public class XMLHelperTest {
 			logger.error("error content:", e);
 		}
 		
+	}
+	
+	@Test
+	public void createDefaultsTest() throws Exception {
+		Defaults defaults = XMLHelper.getInstance().getDefaults();
+		System.out.println(defaults.getProxy().getClazz().getName());
 	}
 	
 }

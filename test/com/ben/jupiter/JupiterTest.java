@@ -17,6 +17,9 @@ package com.ben.jupiter;
 
 import org.junit.Test;
 
+import com.ben.jupiter.service.ServiceFactory;
+import com.ben.jupiter.service.interfaces.ITestSV;
+
 /**
  * @author Yang Bin
  *
@@ -25,7 +28,8 @@ public class JupiterTest {
 
 	@Test
 	public void serviceTest() throws Exception {
-		
+		ITestSV sv = ServiceFactory.getService(ITestSV.class);
+		sv.test();
 	}
 	
 }
