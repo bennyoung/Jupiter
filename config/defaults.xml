@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <defaults>
+
 	<center>
+		<property name="BillId:KeyNum" value="com.ai.common.center.BillIdCenterImpl"/>
 	</center>
-	
-	<proxy>
-	</proxy>
 	
 	<interceptor>
 		<clazz name="" />
 	</interceptor>
 	
 	<transaction-interceptor>
+		<clazz name="com.ailk.appengine.complex.abo.interceptor.impl.ABOTCacheManagerInterceptorImpl" />
 	</transaction-interceptor>
+	
+	<proxy invoke="pojo" type="primitive">
+		<clazz name="com.ben.jupiter.service.impl.LocalServiceInvokeImpl">
+		</clazz>
+	</proxy>
 	
 	<transaction type="Required">
 		<clazz name="com.ai.appframe2.complex.transaction.impl.LocalMutilTransactionImpl" />
@@ -19,5 +25,28 @@
 			<property name="com.ai.appframe2.complex.self.service.base" value="base" />
 		</mapping>
 	</transaction>
+	
+	<datasource>
+		<clazz name="com.ai.appframe2.complex.datasource.impl.LocalMutilDataSourceImpl">
+			<property name="tableName" value="cfg_db_acct" />
+		</clazz>
+		
+		<pool name="base" primary="true" db="MYSQL" type="DBCP">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		   	<property name="url" value="jdbc:mysql://localhost:3306/base?rewriteBatchedStatements=true&amp;cachePrepStmts=true&amp;useServerPrepStmts=true&amp;useUnicode=true&amp;characterEncoding=GBK&amp;autoReconnect=true&amp;failOverReadOnly=false"/>
+		   	<property name="username" value="base"/>
+		   	<property name="password" value="1qaz2wsx"/>
+		    <property name="initialSize" value="0"/>
+		    <property name="maxActive" value="5"/>
+		    <property name="maxIdle" value="2"/>
+    	</pool>
+    	
+    	<mapping>
+			<property name="com.ai.appframe2.complex.self.service.base" value="base" />
+		</mapping>
+		
+	</datasource>
+	
+	<include type="sv" classpath="system/service/appframe-service.xml"/>
 	
 </defaults>

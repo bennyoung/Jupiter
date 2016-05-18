@@ -30,9 +30,18 @@ import com.ben.jupiter.complex.xml.cfg.caches.Quartz;
 import com.ben.jupiter.complex.xml.cfg.daos.Daos;
 import com.ben.jupiter.complex.xml.cfg.defaults.Center;
 import com.ben.jupiter.complex.xml.cfg.defaults.Clazz;
+import com.ben.jupiter.complex.xml.cfg.defaults.DataSource;
 import com.ben.jupiter.complex.xml.cfg.defaults.Defaults;
+import com.ben.jupiter.complex.xml.cfg.defaults.Env;
+import com.ben.jupiter.complex.xml.cfg.defaults.Include;
 import com.ben.jupiter.complex.xml.cfg.defaults.Interceptor;
+import com.ben.jupiter.complex.xml.cfg.defaults.Listener;
+import com.ben.jupiter.complex.xml.cfg.defaults.Mapping;
+import com.ben.jupiter.complex.xml.cfg.defaults.Pool;
 import com.ben.jupiter.complex.xml.cfg.defaults.Property;
+import com.ben.jupiter.complex.xml.cfg.defaults.Proxy;
+import com.ben.jupiter.complex.xml.cfg.defaults.Transaction;
+import com.ben.jupiter.complex.xml.cfg.defaults.TransactionInterceptor;
 import com.ben.jupiter.complex.xml.cfg.services.Services;
 import com.ben.jupiter.exception.JupiterException;
 import com.ben.jupiter.security.ResourceSafeCloseUtil;
@@ -93,6 +102,28 @@ public class XMLHelper {
 		return instance;
 	}
 
+	/**
+	 * 
+	 * @Function: XMLHelper.java
+	 * @Description: 获取defaults.xml信息
+	 *
+	 * @param:参数描述
+	 * @return：返回结果描述
+	 * @throws：异常描述
+	 *
+	 * @version: v1.0.0
+	 * @author: Yang Bin
+	 * @date: 8 Mar 2016 21:59:10
+	 *
+	 * Modification History:
+	 * Date         Author         Version            Description
+	 * ---------------------------------------------------------*
+	 * 8 Mar 2016     Yang Bin           v1.0.0               修改原因
+	 */
+	public Defaults getDefaults() throws Exception {
+		return defaults;
+	}
+	
 	/**
 	 * 
 	 * @Function: XMLHelper.java
@@ -179,8 +210,117 @@ public class XMLHelper {
 			digester.addObjectCreate("defaults/interceptor/clazz/property", Property.class.getName());
 			digester.addSetProperties("defaults/interceptor/clazz/property");
 			
+			//具有事务的拦截器配置
+		    digester.addObjectCreate("defaults/transaction-interceptor", TransactionInterceptor.class.getName());
+		    digester.addSetProperties("defaults/transaction-interceptor");
+		
+		    digester.addObjectCreate("defaults/transaction-interceptor/clazz", Clazz.class.getName());
+		    digester.addSetProperties("defaults/transaction-interceptor/clazz");
+		
+		    digester.addObjectCreate("defaults/transaction-interceptor/clazz/property", Property.class.getName());
+		    digester.addSetProperties("defaults/transaction-interceptor/clazz/property");
 			
-//			defaults = (Defaults) digester.parse(input);
+			// 代理
+			digester.addObjectCreate("defaults/proxy", Proxy.class.getName());
+			digester.addSetProperties("defaults/proxy");
+			
+			digester.addObjectCreate("defaults/proxy/clazz", Clazz.class.getName());
+			digester.addSetProperties("defaults/proxy/clazz");
+			
+			digester.addObjectCreate("defaults/proxy/clazz/property", Property.class.getName());
+			digester.addSetProperties("defaults/proxy/clazz/property");
+			
+			digester.addObjectCreate("defaults/proxy/env", Env.class.getName());
+			digester.addSetProperties("defaults/proxy/env");
+			
+			digester.addObjectCreate("defaults/proxy/env/property", Property.class.getName());
+			digester.addSetProperties("defaults/proxy/env/property");
+			
+			// 事务
+			digester.addObjectCreate("defaults/transaction", Transaction.class.getName());
+		    digester.addSetProperties("defaults/transaction");
+		
+		    digester.addObjectCreate("defaults/transaction/clazz", Clazz.class.getName());
+		    digester.addSetProperties("defaults/transaction/clazz");
+		
+		    digester.addObjectCreate("defaults/transaction/listener", Listener.class.getName());
+		    digester.addSetProperties("defaults/transaction/listener");
+		
+		
+		    digester.addObjectCreate("defaults/transaction/clazz/property", Property.class.getName());
+		    digester.addSetProperties("defaults/transaction/clazz/property");
+		
+		    digester.addObjectCreate("defaults/transaction/mapping", Mapping.class.getName());
+		    digester.addSetProperties("defaults/transaction/mapping");
+		
+		    digester.addObjectCreate("defaults/transaction/mapping/property", Property.class.getName());
+		    digester.addSetProperties("defaults/transaction/mapping/property");
+		    
+		    //数据源
+		    digester.addObjectCreate("defaults/datasource", DataSource.class.getName());
+		    digester.addSetProperties("defaults/datasource");
+		
+		    digester.addObjectCreate("defaults/datasource/clazz", Clazz.class.getName());
+		    digester.addSetProperties("defaults/datasource/clazz");
+		
+		    digester.addObjectCreate("defaults/datasource/clazz/property", Property.class.getName());
+		    digester.addSetProperties("defaults/datasource/clazz/property");
+		
+		    digester.addObjectCreate("defaults/datasource/pool", Pool.class.getName());
+		    digester.addSetProperties("defaults/datasource/pool");
+		
+		    digester.addObjectCreate("defaults/datasource/pool/property", Property.class.getName());
+		    digester.addSetProperties("defaults/datasource/pool/property");
+		
+		    digester.addObjectCreate("defaults/datasource/mapping", Mapping.class.getName());
+		    digester.addSetProperties("defaults/datasource/mapping");
+		
+		    digester.addObjectCreate("defaults/datasource/mapping/property", Property.class.getName());
+		    digester.addSetProperties("defaults/datasource/mapping/property");
+			
+		    //包含文件
+		    digester.addObjectCreate("defaults/include", Include.class.getName());
+		    digester.addSetProperties("defaults/include");
+		    
+			//值设置
+			digester.addSetNext("defaults/center", "setCenter", Center.class.getName());
+			digester.addSetNext("defaults/proxy", "setProxy", Proxy.class.getName());
+			digester.addSetNext("defaults/transaction", "setTransaction", Transaction.class.getName());
+			digester.addSetNext("defaults/datasource", "setDatasource", DataSource.class.getName());
+		    digester.addSetNext("defaults/include", "addInclude", Include.class.getName());
+			
+			digester.addSetNext("defaults/center/property", "addProperty", Property.class.getName());
+			
+			//拦截器配置
+		    digester.addSetNext("defaults/interceptor", "setInterceptor",Interceptor.class.getName());
+		    digester.addSetNext("defaults/interceptor/clazz", "addClazz", Clazz.class.getName());
+		    digester.addSetNext("defaults/interceptor/clazz/property", "addProperty", Property.class.getName());
+		
+		    digester.addSetNext("defaults/transaction-interceptor", "setTransactionInterceptor",TransactionInterceptor.class.getName());
+		    digester.addSetNext("defaults/transaction-interceptor/clazz", "addClazz", Clazz.class.getName());
+		    digester.addSetNext("defaults/transaction-interceptor/clazz/property", "addProperty", Property.class.getName());
+		    
+		    //代理
+		    digester.addSetNext("defaults/proxy/clazz", "setClazz", Clazz.class.getName());
+		    digester.addSetNext("defaults/proxy/clazz/property", "addProperty", Property.class.getName());
+		    digester.addSetNext("defaults/proxy/env", "addEnv", Env.class.getName());
+		    digester.addSetNext("defaults/proxy/env/property", "addProperty", Property.class.getName());
+		
+		    digester.addSetNext("defaults/transaction/clazz", "setClazz", Clazz.class.getName());
+		
+		    digester.addSetNext("defaults/transaction/clazz/property", "addProperty", Property.class.getName());
+		    digester.addSetNext("defaults/transaction/listener", "addListener", Listener.class.getName());
+		    digester.addSetNext("defaults/transaction/mapping", "setMapping", Mapping.class.getName());
+		    digester.addSetNext("defaults/transaction/mapping/property", "addProperty", Property.class.getName());
+		
+		    digester.addSetNext("defaults/datasource/clazz", "setClazz", Clazz.class.getName());
+		    digester.addSetNext("defaults/datasource/clazz/property", "addProperty", Property.class.getName());
+		    digester.addSetNext("defaults/datasource/pool", "addPool", Pool.class.getName());
+		    digester.addSetNext("defaults/datasource/pool/property", "addProperty", Property.class.getName());
+		    digester.addSetNext("defaults/datasource/mapping", "setMapping", Mapping.class.getName());
+		    digester.addSetNext("defaults/datasource/mapping/property", "addProperty", Property.class.getName());
+			
+			defaults = (Defaults) digester.parse(input);
 			
 		} catch (Exception e) {
 			throw e;
@@ -255,8 +395,8 @@ public class XMLHelper {
 			digester.addSetNext("caches/accelerate", "setAccelerate", Accelerate.class.getName());
 			digester.addSetNext("caches/accelerate/property", "addProperty", Property.class.getName());
 			
-			digester.addSetNext("caches/cache", "setCache", Cache.class.getName());
-			digester.addSetNext("caches/cache/property", "addProprety", Property.class.getName());
+			digester.addSetNext("caches/cache", "addCache", Cache.class.getName());
+			digester.addSetNext("caches/cache/property", "addProperty", Property.class.getName());
 			
 			caches = (Caches)digester.parse(input);
 			

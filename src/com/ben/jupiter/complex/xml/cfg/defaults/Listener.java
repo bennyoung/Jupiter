@@ -20,5 +20,18 @@ package com.ben.jupiter.complex.xml.cfg.defaults;
  *
  */
 public class Listener {
+	
+	private String name;
 
+	public Listener() {
+		
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
 }

@@ -21,7 +21,7 @@ import java.util.Stack;
  * @author Yang Bin
  *
  */
-public class StringUtils {
+public class StringUtil {
 
 	public static final char[] c = new char[]{'a', 'e', 'i', 'o', 'u'};
 	
@@ -89,7 +89,7 @@ public class StringUtils {
 	public static void main(String args[]) throws Exception {
 		String s = "yangbin";
 		System.out.println(s);
-		System.out.println(StringUtils.revert(s));
+		System.out.println(StringUtil.revert(s));
 	}
 	
 }

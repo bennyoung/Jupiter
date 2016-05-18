@@ -15,10 +15,26 @@
 */
 package com.ben.jupiter.complex.xml.cfg.defaults;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Yang Bin
  *
  */
 public class Interceptor {
 
+	private List list = new ArrayList();
+
+	public Interceptor() {
+
+	}
+
+	public void addClazz(Clazz clazz) {
+		this.list.add(clazz);
+	}
+
+	public Clazz[] getClazzs() {
+		return (Clazz[]) this.list.toArray(new Clazz[0]);
+	}
 }

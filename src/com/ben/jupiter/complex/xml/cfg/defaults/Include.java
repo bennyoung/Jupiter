@@ -21,4 +21,27 @@ package com.ben.jupiter.complex.xml.cfg.defaults;
  */
 public class Include {
 
+	private String classpath;
+	private String type;
+
+	public Include() {
+		
+	}
+
+	public String getClasspath() {
+		return classpath;
+	}
+
+	public void setClasspath(String classpath) {
+		this.classpath = classpath;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 }

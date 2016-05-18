@@ -1,24 +1,24 @@
 /**   
-* Copyright: Copyright (c) 2015 Asiainfo
+* Copyright: Copyright (c) 2016 Asiainfo
 * 
-* @ClassName: CommonUtils.java
+* @ClassName: IMBeanRegistry.java
 * @Description: 该类的功能描述
 *
 * @version: v1.0.0
 * @author: Yang Bin
-* @date: 11 Nov 2015 14:50:58 
+* @date: 16 May 2016 20:24:30 
 *
 * Modification History:
 * Date         Author          Version            Description
 *---------------------------------------------------------*
-* 11 Nov 2015     Yang Bin           v1.0.0               修改原因
+* 16 May 2016     Yang Bin           v1.0.0               修改原因
 */
-package com.ben.jupiter.util;
+package com.ben.jupiter.monitor.registry;
 
 /**
  * @author Yang Bin
  *
  */
-public class CommonUtils {
+public interface IMBeanRegistry {
 
 }

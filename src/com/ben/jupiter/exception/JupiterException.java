@@ -21,12 +21,25 @@ package com.ben.jupiter.exception;
  */
 public class JupiterException extends Exception {
 
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -5919703127157741322L;
+
+	public JupiterException() {
+		super();
+	}
+	
 	public JupiterException(String msg) {
 		super(msg);
 	}
 	
 	public JupiterException(String msg, Throwable e) {
 		super(msg, e);
+	}
+	
+	public JupiterException(Throwable e) {
+		super(e);
 	}
 	
 }

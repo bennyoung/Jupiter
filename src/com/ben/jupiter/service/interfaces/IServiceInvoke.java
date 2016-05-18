@@ -39,7 +39,7 @@ public interface IServiceInvoke {
 	 * ---------------------------------------------------------*
 	 * 22 Jul 2015     Yang Bin           v1.0.0               修改原因
 	 */
-	public Object getService(Class interfaceClass);
+	public <BEN> BEN getService(Class<BEN> interfaceClass);
 	
 	/**
 	 * 
@@ -59,7 +59,7 @@ public interface IServiceInvoke {
 	 * ---------------------------------------------------------*
 	 * 22 Jul 2015     Yang Bin           v1.0.0               修改原因
 	 */
-	public Object getService(String interfaceClass);
+	public <BEN> BEN getService(String interfaceClass);
 	
 	/**
 	 * 

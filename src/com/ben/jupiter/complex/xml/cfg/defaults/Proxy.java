@@ -15,10 +15,35 @@
 */
 package com.ben.jupiter.complex.xml.cfg.defaults;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Yang Bin
  *
  */
 public class Proxy {
 
+	private List list = new ArrayList();
+	private Clazz clazz;
+
+	public Proxy() {
+
+	}
+
+	public Clazz getClazz() {
+		return clazz;
+	}
+
+	public void setClazz(Clazz clazz) {
+		this.clazz = clazz;
+	}
+
+	public void addEnv(Env env) {
+		this.list.add(env);
+	}
+
+	public Env[] getEnvs() {
+		return (Env[]) this.list.toArray(new Env[0]);
+	}
 }
