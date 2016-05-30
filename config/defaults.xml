@@ -7,11 +7,9 @@
 	</center>
 	
 	<interceptor>
-		<clazz name="" />
 	</interceptor>
 	
 	<transaction-interceptor>
-		<clazz name="com.ailk.appengine.complex.abo.interceptor.impl.ABOTCacheManagerInterceptorImpl" />
 	</transaction-interceptor>
 	
 	<proxy invoke="pojo" type="primitive">

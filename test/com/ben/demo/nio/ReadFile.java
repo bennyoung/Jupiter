@@ -15,12 +15,21 @@
 */
 package com.ben.demo.nio;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import org.junit.Test;
 
 /**
  * @author Yang Bin
@@ -47,6 +56,65 @@ public class ReadFile {
 			}
 		} catch (final Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void method1() {
+		InputStream in = null;
+		try {
+			in = new BufferedInputStream(new FileInputStream("bin/defaults.xml"));
+			
+			byte[] buf = new byte[1024];
+			int bytesRead = in.read(buf);
+			while (bytesRead != -1) {
+				for (int i = 0; i < bytesRead; i++) {
+					System.out.print((char)buf[i]);
+				}
+				bytesRead = in.read(buf);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (in != null) {
+					in.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Test
+	public void method2() {
+		RandomAccessFile file = null;
+		try {
+			file = new RandomAccessFile("bin/defaults.xml", "rw");
+			FileChannel fc = file.getChannel();
+			ByteBuffer buf = ByteBuffer.allocate(1024);
+			
+			int bytesRead = fc.read(buf);
+			System.out.println(bytesRead);
+			
+			while (bytesRead != -1) {
+				buf.flip();
+				while (buf.hasRemaining()) {
+					System.out.print((char)buf.get());
+				}
+				buf.compact();
+				bytesRead = fc.read(buf);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (file != null) {
+					file.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

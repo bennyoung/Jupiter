@@ -21,4 +21,13 @@ package com.ben.jupiter.proxy.interfaces;
  */
 public interface AfterMethodInterceptor {
 
+	/**
+     * 拦截
+     * @param obj Object
+     * @param methodName String
+     * @param objectArray Object[]
+     * @throws Exception
+     */
+	public void interceptor(Object obj,String methodName,Object[] objectArray) throws Exception;
+	
 }

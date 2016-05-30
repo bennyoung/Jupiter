@@ -20,10 +20,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.ben.jupiter.exception.JupiterException;
+import com.ben.jupiter.proxy.impl.MethodMonitorInterceptorImpl;
+import com.ben.jupiter.proxy.interfaces.AfterMethodInterceptor;
 import com.ben.jupiter.proxy.interfaces.AroundMethodInterceptor;
 import com.ben.jupiter.proxy.interfaces.BeforeMethodInterceptor;
 import com.ben.jupiter.proxy.interfaces.InvokerListener;
@@ -65,6 +68,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
 				if (_interceptors[i] instanceof BeforeMethodInterceptor) {
 					((BeforeMethodInterceptor)_interceptors[i]).interceptor(this._obj, method.getName(), args);
 					isBeforeSuccess[i] = true;
+				// 环绕拦截器
 				} else if (_interceptors[i] instanceof AroundMethodInterceptor) {
 					((AroundMethodInterceptor)_interceptors[i]).beforeInterceptor(this._obj, method.getName(), args);
 					isBeforeSuccess[i] = true;
@@ -106,15 +110,54 @@ public class ProxyInvocationHandler implements InvocationHandler {
 			// 调用真实方法
 			rtn = method.invoke(this._obj, args);
 			
+			// 监听器
 			if (!listeners.isEmpty()) {
 				for (InvokerListener listener : listeners) {
 					listener.afterInvoker(this._obj, method.getName(), args);
 				}
 			}
 			
-			
 		} catch (Exception e) {
+			try {
+				for (int i = _interceptors.length - 1; i >= 0; i--) {
+					if (_interceptors[i] instanceof AroundMethodInterceptor) {
+						((AroundMethodInterceptor)_interceptors[i]).exceptionInterceptor(this._obj, method.getName(), args);
+					}
+				}
+			} catch (Exception e2) {
+				throw e2;
+			}
 			
+			// 对异常进行拆除成标准的异常
+			Throwable root = null;
+			try {
+				root = ExceptionUtils.getCause(e);
+			} catch (Exception e3) {
+				throw e3;
+			}
+			if (root != null) {
+				throw root;
+			} else {
+				throw e;
+			}
+		}
+		
+		try {
+			for (int i = 0; i < _interceptors.length; i++) {
+				// 方法后拦截器
+				if (_interceptors[i] instanceof AfterMethodInterceptor) {
+					((AfterMethodInterceptor)_interceptors[i]).interceptor(this._obj, method.getName(), args);
+				}
+				// 环绕拦截器
+				if (_interceptors[i] instanceof AroundMethodInterceptor) {
+					if (MethodMonitorInterceptorImpl.class.isAssignableFrom(_interceptors[i].getClass())) {
+						((MethodMonitorInterceptorImpl)_interceptors[i]).setReturnObject(rtn);
+					}
+					((AroundMethodInterceptor)_interceptors[i]).afterInterceptor(this._obj, method.getName(), args);
+				}
+			}
+		} catch (Exception e) {
+			throw e;
 		}
 		
 		return rtn;

@@ -30,4 +30,22 @@ public class Constants {
 	public static final String CACHE_FILE_NAME = "cache.xml";
 	
 	
+	// 事务类型：Required
+	public static final String REQUIRED = "Required";
+	
+	// 事务类型：RequiresNew
+	public static final String REQUIRES_NEW = "RequiresNew";
+	
+	// 事务类型：Supports
+	public static final String SUPPORTS = "Supports";
+	
+	// 事务类型：NotSupported
+	public static final String NOT_SUPPORTED = "NotSupported";
+	
+	// 事务类型：Never
+	public static final String NEVER = "Never";
+	
+	// 事务类型：Mandatory
+	public static final String MANDATORY = "Mandatory";
+	
 }
