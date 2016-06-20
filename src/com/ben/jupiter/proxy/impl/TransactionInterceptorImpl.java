@@ -22,6 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.ben.jupiter.common.Constants;
+import com.ben.jupiter.complex.SessionManager;
 import com.ben.jupiter.complex.xml.XMLHelper;
 import com.ben.jupiter.complex.xml.cfg.defaults.Clazz;
 import com.ben.jupiter.complex.xml.cfg.defaults.TransactionInterceptor;
@@ -58,6 +59,10 @@ public class TransactionInterceptorImpl implements AroundMethodInterceptor {
 	private AroundMethodInterceptor[] customInterceptorObject = null;
 	
 	private static HashMap METHOD_TX_MAP = new HashMap();
+	
+	private boolean isCreate = false;
+
+	private boolean isSuspend = false;
 	
 	static {
 		try {
@@ -111,6 +116,42 @@ public class TransactionInterceptorImpl implements AroundMethodInterceptor {
 		log.debug(obj.getClass().getName() + " " + methodName + "'s Transaction attribute is" + methodTransactionAttribute);
 		
 		if (methodTransactionAttribute == REQUIRED) {
+			// 如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中
+			if (SessionManager.getSession().isStartTransaction()) {
+				log.debug("user required model, and already started a transaction......");
+			} else {
+				SessionManager.getSession().startTransaction();
+				isCreate = true;
+			}
+		} else if (methodTransactionAttribute == REQUIRES_NEW) {
+			// 新建事务，如果当前存在事务，把当前事务挂起
+			if (SessionManager.getSession().isStartTransaction()) {
+				// 挂起事务,开始新的事务
+				SessionManager.getSession().suspend();
+				SessionManager.getSession().startTransaction();
+				isCreate = true;
+				isSuspend = true;
+			} else {
+				// 没有外层事务,开始新的事务
+				SessionManager.getSession().startTransaction();
+				isCreate = true;
+			}
+		} else if (methodTransactionAttribute == SUPPORTS) {
+			// 支持当前事务，如果当前没有事务，就以非事务方式执行。
+			
+		} else if (methodTransactionAttribute == NOT_SUPPORTED) {
+			// 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起
+			if (SessionManager.getSession().isStartTransaction()) {
+				SessionManager.getSession().suspend();
+				isSuspend = true;
+			}
+		} else if (methodTransactionAttribute == NEVER) {
+			// 以非事务方式执行，如果当前存在事务，则抛出异常
+			
+		} else if (methodTransactionAttribute == MANDATORY) {
+			// 使用当前的事务，如果当前没有事务，就抛出异常
+			
+		} else {
 			
 		}
 		

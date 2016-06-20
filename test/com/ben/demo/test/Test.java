@@ -26,7 +26,11 @@ public class Test {
 	
 	public static void main(String[] args) {
 		String s = "Hello World";
-		System.out.println(s.indexOf("o", 8));
+		System.out.println(s.indexOf("o", 7));
+		
+		int i = 10;
+		System.out.println(i >> 2);
+		System.out.println(Integer.toBinaryString(i));
 	}
 	
 }

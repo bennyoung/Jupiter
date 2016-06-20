@@ -80,4 +80,18 @@ public class MiscHelper {
 		return clazz;
 	}
 
+	/**
+	 * 获得调用地址
+	 * 
+	 * @return String
+	 */
+	public static String getCallPath() {
+		StringBuilder sb = new StringBuilder();
+		StackTraceElement stack[] = (new Throwable()).getStackTrace();
+		for (int i = 0; i < stack.length; i++) {
+			sb.append(stack[i].getClassName() + "." + stack[i].getMethodName()
+					+ "() " + "line count" + ":" + stack[i].getLineNumber() + "\n");
+		}
+		return sb.toString();
+	}
 }
