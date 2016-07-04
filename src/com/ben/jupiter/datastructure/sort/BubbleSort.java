@@ -21,4 +21,32 @@ package com.ben.jupiter.datastructure.sort;
  */
 public class BubbleSort {
 
+	public static void main(String[] args) {
+        int[] a={49,38,65,97,76,13,27,49,78,34,12,64,1};
+        BubbleSort.sort(a);
+    }
+	
+	public static void sort(int[] a) {
+		System.out.println("before：");
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i]+" ");
+        }
+        
+        System.out.println();
+        
+        for (int i = 0; i < a.length; i++) {
+        	int tmp;
+        	for (int j = 0; j < a.length - i - 1; j++) {
+        		if (a[j] > a[j + 1]) {
+        			tmp = a[j + 1];
+        			a[j + 1] = a[j];
+        			a[j] = tmp;
+        		}
+        	}
+        }
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i]+" ");
+        }
+	}
+	
 }

@@ -31,6 +31,8 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
+import sun.nio.ByteBuffered;
+
 /**
  * @author Yang Bin
  *
@@ -45,9 +47,9 @@ public class ReadFile {
 		URL url = readFile.getClass().getResource("/");
 		System.out.println(url.toString());
 		
-		Path file = Paths.get("/Users/Ben/Asiainfo/github/Jupiter/config/defaults.xml");
-		Path file1 = Paths.get("bin/defaults.xml");
-		System.out.println(file1.toAbsolutePath());
+//		Path file = Paths.get("/Users/admin/Asiainfo/github/Jupiter/config/defaults.xml");
+		Path file = Paths.get("bin/defaults.xml");
+//		System.out.println(file1.toAbsolutePath());
 		
 		try (BufferedReader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8)) {
 			String line = null;

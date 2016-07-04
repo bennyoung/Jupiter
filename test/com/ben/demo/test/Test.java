@@ -31,6 +31,16 @@ public class Test {
 		int i = 10;
 		System.out.println(i >> 2);
 		System.out.println(Integer.toBinaryString(i));
+		
+		char c = '杨';
+		
+		System.out.println(c);
+		System.out.println((int)Character.MAX_VALUE);
+		
+		String ss = "s";
+		System.out.println(ss);
+		
+		System.gc();
 	}
 	
 }
