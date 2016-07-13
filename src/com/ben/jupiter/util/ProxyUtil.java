@@ -29,7 +29,7 @@ import java.util.Map;
 public class ProxyUtil {
 
 	//优化newProxyInstance
-	private static final Class[] CONSTRUCT_PARAM = {InvocationHandler.class};
+	private static final Class CONSTRUCT_PARAM = InvocationHandler.class;
 	private static final Map CONS_CACHE = new HashMap();
 	
 	private ProxyUtil() {
