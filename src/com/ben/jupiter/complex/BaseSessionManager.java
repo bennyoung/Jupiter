@@ -85,9 +85,7 @@ public class BaseSessionManager {
 	
 	/**
 	 * setSession
-	 * 
-	 * @param session
-	 *        Session
+	 * @param session Session
 	 */
 	public static void setSession(Session session) {
 		s_session.set(session);

@@ -16,6 +16,7 @@
 package com.ben.jupiter.transaction.impl;
 
 import com.ben.jupiter.exception.JupiterException;
+import com.ben.jupiter.monitor.MonitorItem;
 import com.ben.jupiter.transaction.interfaces.Session;
 
 /**
@@ -36,5 +37,73 @@ public abstract class AbstractTransactionImpl implements Session {
 		if (true) {
 			throw new JupiterException("do not support start transaction with transaction name....");
 		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.ben.jupiter.transaction.interfaces.Session#forceRollbackTransaction(java.lang.String)
+	 */
+	@Override
+	public void forceRollbackTransaction(String classHashCode) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.ben.jupiter.transaction.interfaces.Session#suspendDataSource(java.lang.String)
+	 */
+	@Override
+	public void suspendDataSource(String newDataSource) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.ben.jupiter.transaction.interfaces.Session#resumeDataSource()
+	 */
+	@Override
+	public void resumeDataSource() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.ben.jupiter.transaction.interfaces.Session#getOpenTransaction()
+	 */
+	@Override
+	public MonitorItem[] getOpenTransaction() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @return String
+	 */
+	public String getDefualtDataSourceOfCurrentTransaction() {
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param transactionName String
+	 * @return String
+	 */
+	public String getDefualtDataSourceByTransactionName(String transactionName) {
+		return null;
+	}
+
+	/**
+	 * 获得当前数据源名称
+	 * @return String
+	 */
+	public String getCurrentTransactionName() {
+		return null;
+	}
+
+	/**
+	 * 调试
+	 * @return String
+	 */
+	public String debuger() {
+		return null;
 	}
 }

@@ -16,6 +16,7 @@
 package com.ben.jupiter.datasource.interfaces;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * @author Yang Bin
@@ -26,7 +27,7 @@ public interface IDataSource {
 	/**
 	 * 当前的数据源
 	 */
-	public static final ThreadLocal CUR_DATASOURCE = new ThreadLocal();
+	public static final ThreadLocal<String> CUR_DATASOURCE = new ThreadLocal<>();
 
 	/**
 	 * 从指定的数据源获得数据库连接
@@ -34,6 +35,6 @@ public interface IDataSource {
 	 * @throws Exception
 	 * @return Connection
 	 */
-	public Connection getConnectionFromDataSource(String ds) throws Exception;
+	public Connection getConnectionFromDataSource(String ds) throws SQLException;
 	
 }
