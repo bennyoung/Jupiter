@@ -15,8 +15,8 @@
 */
 package com.ben.demo.nio;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,8 +30,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.Test;
-
-import sun.nio.ByteBuffered;
 
 /**
  * @author Yang Bin
@@ -65,7 +63,7 @@ public class ReadFile {
 	public void method1() {
 		InputStream in = null;
 		try {
-			in = new BufferedInputStream(new FileInputStream("bin/defaults.xml"));
+			in = new FileInputStream("bin/defaults.xml");
 			
 			byte[] buf = new byte[1024];
 			int bytesRead = in.read(buf);
@@ -90,10 +88,10 @@ public class ReadFile {
 	
 	@Test
 	public void method2() {
-		RandomAccessFile file = null;
+		FileInputStream fis = null;
 		try {
-			file = new RandomAccessFile("bin/defaults.xml", "rw");
-			FileChannel fc = file.getChannel();
+			fis = new FileInputStream("bin/defaults.xml");
+			FileChannel fc = fis.getChannel();
 			ByteBuffer buf = ByteBuffer.allocate(1024);
 			
 			int bytesRead = fc.read(buf);
@@ -101,6 +99,7 @@ public class ReadFile {
 			
 			while (bytesRead != -1) {
 				buf.flip();
+				System.out.println("--------------");
 				while (buf.hasRemaining()) {
 					System.out.print((char)buf.get());
 				}
@@ -111,8 +110,8 @@ public class ReadFile {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (file != null) {
-					file.close();
+				if (fis != null) {
+					fis.close();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

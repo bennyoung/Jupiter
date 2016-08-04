@@ -19,6 +19,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -46,6 +49,12 @@ public class ScannerTest {
 			line = sc.nextLine();
 			System.out.println(line);
 		}
+		
+		RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
+		MappedByteBuffer inputBuffer = randomAccessFile
+				.getChannel().map(FileChannel.MapMode.READ_ONLY, 0, file.length());
+		byte[] dst = new byte[1024];
+		
 		
 		is.close();
 		sc.close();
